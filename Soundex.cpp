@@ -12,13 +12,13 @@ std::string getStringCode(const std::string& name, std::string& soundex, char pr
     for (size_t i = 1; i < name.length() && soundex.length() < 4; ++i)
     {
         char code = getSoundexCode(name[i]);
-        if (code != '0' && code != prevCode)
+        if (code != '0' && code != prevcode)
         {
             soundex += code;
-            prevCode = code;
+            prevcode = code;
         }     
     }
-    return prevCode;
+    return prevcode;
 }
 
 std::string generateSoundex(const std::string& name) 
@@ -28,7 +28,7 @@ std::string generateSoundex(const std::string& name)
     std::string soundex(1, toupper(name[0]));
     char prevCode = getSoundexCode(name[0]);
 
-    prevcode = getStringCode(name, soundex, prevcode);
+    prevCode = getStringCode(name, soundex, prevCode);
     
     while (soundex.length() < 4) 
     {
