@@ -7,7 +7,7 @@ char getSoundexCode(char c)
     return soundexCodes[toupper(c) - 'A'];
 }
 
-std::string getStringCode(const std::string& name, std::string& soundex, char prevcode)
+char getStringCode(const std::string& name, std::string& soundex, char prevcode)
 {
     for (size_t i = 1; i < name.length() && soundex.length() < 4; ++i)
     {
