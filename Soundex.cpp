@@ -9,7 +9,7 @@ char getSoundexCode(char c)
 
 std::string generateSoundex(const std::string& name) 
 {
-    name.empty() ? (void)0 : return "";
+    return name.empty() ? "" : (void)0;
 
     std::string soundex(1, toupper(name[0]));
     char prevCode = getSoundexCode(name[0]);
