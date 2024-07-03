@@ -7,16 +7,22 @@ char getSoundexCode(char c)
     return soundexCodes[toupper(c) - 'A'];
 }
 
+char eliminateZeroandRepeatedValue (char code, char prevcode, std::string& soundex)
+{
+   if (code != '0' && code != prevcode)
+    {
+        soundex += code;
+        prevcode = code;
+    } 
+    return prevcode;
+}
+
 char getStringCode(const std::string& name, std::string& soundex, char prevcode)
 {
     for (size_t i = 1; i < soundex.length() < 4; ++i)
     {
         char code = getSoundexCode(name[i]);
-        if (code != '0' && code != prevcode)
-        {
-            soundex += code;
-            prevcode = code;
-        }     
+        char prevcode = eliminateZeroandRepeatedValue(code, prevcode, soundex);    
     }
     return prevcode;
 }
