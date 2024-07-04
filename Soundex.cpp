@@ -17,12 +17,17 @@ char eliminateZeroandRepeatedValue (char code, char prevcode, std::string& sound
     return prevcode;
 }
 
+void functioncalls()
+{
+    char code = getSoundexCode(name[i]);
+    char prevcode = eliminateZeroandRepeatedValue(code, prevcode, soundex);
+}
+
 char getStringCode(const std::string& name, std::string& soundex, char prevcode)
 {
     for (size_t i = 1; i < name.length() && soundex.length() < 4; ++i)
     {
-        char code = getSoundexCode(name[i]);
-        char prevcode = eliminateZeroandRepeatedValue(code, prevcode, soundex);    
+        functioncalls();
     }
     return prevcode;
 }
