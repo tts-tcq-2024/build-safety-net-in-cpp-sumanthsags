@@ -2,11 +2,18 @@
 #include "Soundex.h"
 
 
-TEST(SoundexTest, HandlesEmptyString) {
+TEST(SoundexTest, HandlesEmptyString)
+{
     EXPECT_EQ(generateSoundex(""), "");
 }
 
-TEST(SoundexTest, HandlesSingleCharacter) {
+TEST(SoundexTest, HandlesSingleCharacter) 
+{
     EXPECT_EQ(generateSoundex("A"), "A000");
+}
+
+TEST(SoundexTest, HandlesString)
+{
+    EXPECT_EQ(generateSoundex("HERMAN"), "H650");
 }
 

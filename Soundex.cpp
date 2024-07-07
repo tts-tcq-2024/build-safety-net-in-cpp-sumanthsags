@@ -1,34 +1,43 @@
 #include "Soundex.h"
 #include <cctype>
 
-char getSoundexCode(char c) {
-    c = toupper(c);
-    switch (c) {
-        case 'B': case 'F': case 'P': case 'V': return '1';
-        case 'C': case 'G': case 'J': case 'K': case 'Q': case 'S': case 'X': case 'Z': return '2';
-        case 'D': case 'T': return '3';
-        case 'L': return '4';
-        case 'M': case 'N': return '5';
-        case 'R': return '6';
-        default: return '0'; // For A, E, I, O, U, H, W, Y
-    }
+char getSoundexCode(char c)
+{
+    static const char soundexCodes[26] = {'0', '1', '2', '3', '0', '1', '2', '0', '0', '2', '2', '4', '5', '5', '0', '1', '2', '6', '2', '3', '0', '1', '0', '2', '0', '2'};
+    return soundexCodes[toupper(c) - 'A'];
 }
 
-std::string generateSoundex(const std::string& name) {
+char eliminateZeroandRepeatedValue (char prevcode, std::string& soundex, size_t i, const std::string& name)
+{
+   char code = getSoundexCode(name[i]);
+   if (code != '0' && code != prevcode)
+    {
+        soundex += code;
+        prevcode = code;
+    } 
+    return prevcode;
+}
+
+char getStringCode(const std::string& name, std::string& soundex, char prevcode)
+{
+    for (size_t i = 1; i < name.length() && soundex.length() < 4; ++i)
+    {
+        char prevcode = eliminateZeroandRepeatedValue(prevcode, soundex, i, name);
+    }
+    return prevcode;
+}
+
+std::string generateSoundex(const std::string& name) 
+{
     if (name.empty()) return "";
 
     std::string soundex(1, toupper(name[0]));
     char prevCode = getSoundexCode(name[0]);
 
-    for (size_t i = 1; i < name.length() && soundex.length() < 4; ++i) {
-        char code = getSoundexCode(name[i]);
-        if (code != '0' && code != prevCode) {
-            soundex += code;
-            prevCode = code;
-        }
-    }
-
-    while (soundex.length() < 4) {
+    prevCode = getStringCode(name, soundex, prevCode);
+    
+    while (soundex.length() < 4) 
+    {
         soundex += '0';
     }
 
